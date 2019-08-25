@@ -31,24 +31,36 @@ export default class App extends React.Component {
       console.log(element);
       this.setState(
         (prevState, props) => this.addProduct(prevState, props, element),
-        () => console.log(this.state.products)
+        () => {
+          console.log("handleInitLoad: State Init completed! New state => ");
+          console.log(this.state.products);
+        }
       );
     });
-    console.log("handleInitLoad: this.state.products");
-    console.log(this.state.products);
+    // console.log("handleInitLoad: this.state.products");
+    // console.log(this.state.products);
   };
 
   addProduct = (prevState, props, product) => {
-    console.log("addProduct => ");
-    console.log(product);
+    // console.log("addProduct => ");
+    // console.log(product);
+    // console.log(prevState);
     return {
-      products: [...prevState, product]
+      products: [...prevState.products, product]
     };
   };
 
   updateProduct = (prevState, props, parm) => {
+    const list = prevState.products.map((item, j) => {
+      if (item.id === parm.id) {
+        return item + 1;
+      } else {
+        return item;
+      }
+    });
+
     return {
-      products: parm
+      list
     };
   };
 
